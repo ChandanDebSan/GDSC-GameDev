@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - banana
+  - spike
+  - traps
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3615892647
+    locked: 0
+  - name: Platform
+    uniqueID: 4070583605
+    locked: 0
+  - name: Player
+    uniqueID: 740924871
+    locked: 0
+  - name: Banana
+    uniqueID: 2126351415
+    locked: 0
+  - name: spikes
+    uniqueID: 3974417567
+    locked: 0
