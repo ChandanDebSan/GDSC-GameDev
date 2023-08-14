@@ -9,7 +9,7 @@ public class stickyplatform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player" || collision.gameObject.name == "traps")
         {
             collision.gameObject.transform.SetParent(transform);
         }
