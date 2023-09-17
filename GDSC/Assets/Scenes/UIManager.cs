@@ -11,18 +11,29 @@ public class UIManager : MonoBehaviour
     int score;
     public Button[] buttons;
     public bool gameOver;
+    Scene currentScene;
+    string sceneName;
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
-        InvokeRepeating("scoreUpdate", 1.0f, 1f);
+        
+        if (sceneName != "menu")
+        {
+            score = 0;
+            InvokeRepeating("scoreUpdate", 1.0f, 1f);
+        }
         gameOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = "score: " + score;
+        currentScene = SceneManager.GetActiveScene();
+        sceneName = currentScene.name;
+        if (sceneName != "menu") {
+            scoreText.text = "score: " + score;
+        }
+        
     }
     void scoreUpdate()
     {
