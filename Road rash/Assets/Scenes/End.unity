@@ -513,9 +513,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1535154439}
+      - m_Target: {fileID: 1535154434}
         m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
-        m_MethodName: EndGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
