@@ -9,10 +9,15 @@ public class myGameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public Text scoreText ;
+    public Text comboScore;
     private int score ;
+    private float comboTimeRemaining = 0f;
+    private bool iscomboActive = false; 
+    [SerializeField] float comboTimer = 7f;
     private myBlade blade;
     private mySpawner spawner;
     public Image fadeImage;
+    private int combo = 0;
      private void Awake()
     {
        blade = FindObjectOfType<myBlade>();
@@ -29,6 +34,7 @@ public class myGameManager : MonoBehaviour
         spawner.enabled = true;
         score = 0;
         scoreText.text = "Score:0";
+        comboScore.text = "Combo:0";
         Time.timeScale = 1f;
         clearScene();
     }
@@ -55,8 +61,6 @@ public class myGameManager : MonoBehaviour
         blade.enabled = false;
         spawner.enabled = false;
         StartCoroutine(ExplodeSequence());
-       
-        
     }
     private IEnumerator ExplodeSequence()
     {
@@ -76,25 +80,56 @@ public class myGameManager : MonoBehaviour
         }
 
         yield return new WaitForSecondsRealtime(0.5f);
-
-
-        elapsed = 0f;
         GameMenu();
-        // Fade back in
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
-
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
+        
         
     }
     public void GameMenu()
     {
         SceneManager.LoadScene("GameOver");
     }
-   
+    
+    //Combo Logic Starts Here
+    public void StartComboTimer()
+    {
+        if (!iscomboActive)
+        {
+            iscomboActive = true;
+            comboTimeRemaining = comboTimer;
+        }
+        else
+        {
+            Incrementcombo();
+        }
+    }
+    public void Incrementcombo()
+    {
+        combo++;
+        UpdateComboText();
+    }
+    public void UpdateComboText()
+    {
+        comboScore.text = "Combo:" + combo.ToString();
+    }
+    public void ResetCombo()
+    {
+        combo = 0;
+        comboTimeRemaining = comboTimer;
+        iscomboActive = false;  
+        UpdateComboText();
+    }
+ 
+    public void Update()
+    {
+        if (iscomboActive)
+        {
+            comboTimeRemaining -= Time.deltaTime;
+
+            if (comboTimeRemaining <= 0.0f)
+            {
+                ResetCombo();
+            }
+        }
+    }
+    //Combo logic ends here
 }

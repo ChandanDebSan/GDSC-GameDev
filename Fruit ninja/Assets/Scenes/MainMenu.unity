@@ -1063,11 +1063,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitPrefabs:
-  - {fileID: 1345022896480124042, guid: a90ffa1befc33e4479cfb37fb5dece47, type: 3}
-  - {fileID: 9137535743039622809, guid: 6a28310721d8ca54086c5c300a663b94, type: 3}
-  - {fileID: 3469416261526121853, guid: d5e3dc92758004c448ebb9c91d4562cd, type: 3}
-  - {fileID: 1322510157125763251, guid: e80fcfc9f70e2c640a4d22775c8860de, type: 3}
-  - {fileID: 6161171722280899850, guid: 024483f068cf0b145911881e8958d511, type: 3}
+  - {fileID: 7371264600241542911, guid: 9cce418dc95f94c4f9870422b5b904f8, type: 3}
+  - {fileID: 5959981877454650508, guid: e3420c665ba696046a35bbddc2c997c5, type: 3}
+  - {fileID: 3276175493376248832, guid: a48ae1a5b9431ea4e92c4a03ceaaa1c1, type: 3}
+  - {fileID: 7710002902430843339, guid: 6698d3fc9228057488d1e885f664a146, type: 3}
+  - {fileID: 2202104824963009330, guid: 2040abe0bc6d1864f96ba16cb4dab3ae, type: 3}
   minSpawnDelay: 0.25
   maxSpawnDelay: 1
   maxAngle: 15
@@ -1239,7 +1239,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
