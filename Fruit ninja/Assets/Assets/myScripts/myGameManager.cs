@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+
 public class myGameManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -17,11 +19,14 @@ public class myGameManager : MonoBehaviour
     private myBlade blade;
     private mySpawner spawner;
     public Image fadeImage;
-    private int combo = 0;
+    public int combo = 0;
+    public GameObject comboTextPrefab;
+  
      private void Awake()
     {
        blade = FindObjectOfType<myBlade>();
        spawner = FindObjectOfType<mySpawner>();
+      
     }
     private void Start()
     {
@@ -53,13 +58,24 @@ public class myGameManager : MonoBehaviour
     }
     public void IncreaseScore()
     {
-        score++;
-        scoreText.text = "Score:" + score;
+       
+        if (combo > 1)
+        {
+            score += combo;
+            scoreText.text = "Score:" + score;
+        }
+        else
+        {
+            score++;
+            scoreText.text = "Score:" + score;
+        }
+        
     }
-    public void Explode()
+    public void Explode(AudioSource bombSource)
     {
         blade.enabled = false;
         spawner.enabled = false;
+        bombSource.Play();
         StartCoroutine(ExplodeSequence());
     }
     private IEnumerator ExplodeSequence()
@@ -96,6 +112,7 @@ public class myGameManager : MonoBehaviour
         {
             iscomboActive = true;
             comboTimeRemaining = comboTimer;
+            
         }
         else
         {
@@ -105,18 +122,30 @@ public class myGameManager : MonoBehaviour
     public void Incrementcombo()
     {
         combo++;
+        if (combo >= 5)
+        {
+            LeanTween.moveLocal(comboTextPrefab, new Vector3(-54.8f, 5.6f, 0f), 1.5f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuart);
+            LeanTween.scale(comboTextPrefab, new Vector3(1f, 1f, 1f), 1.5f).setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.moveLocal(comboTextPrefab, new Vector3(-54.8f, 202f, 0f), 1.5f).setDelay(1.5f).setEase(LeanTweenType.easeOutQuart);
+        }
+        else if (combo == 0) 
+        {
+            LeanTween.scale(comboTextPrefab, new Vector3(1f, 1f, 1f), 0f).setDelay(0.1f).setEase(LeanTweenType.easeOutCubic);
+        }
         UpdateComboText();
     }
     public void UpdateComboText()
     {
-        comboScore.text = "Combo:" + combo.ToString();
+        comboScore.text = "+"+ combo.ToString() + " Combo"  ;
     }
     public void ResetCombo()
     {
         combo = 0;
         comboTimeRemaining = comboTimer;
-        iscomboActive = false;  
+        iscomboActive = false;
+       
         UpdateComboText();
+        LeanTween.scale(comboTextPrefab, Vector3.zero, 1.5f).setEase(LeanTweenType.easeOutCubic);
     }
  
     public void Update()
@@ -131,5 +160,6 @@ public class myGameManager : MonoBehaviour
             }
         }
     }
+ 
     //Combo logic ends here
 }

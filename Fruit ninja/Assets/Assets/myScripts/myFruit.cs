@@ -10,6 +10,7 @@ public class myFruit : MonoBehaviour
     private Rigidbody fruitRigidBody;
     private Collider fruitCollider;
     private ParticleSystem juiceParticleEffect;
+    public AudioSource juiceAudioSource;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class myFruit : MonoBehaviour
         fruitCollider = GetComponent<Collider>();
         juiceParticleEffect = GetComponentInChildren<ParticleSystem>();
         GameManager = FindObjectOfType<myGameManager>();
+        juiceAudioSource = gameObject.GetComponent<AudioSource>();  
     }
     private void Slice(Vector3 direction, Vector3 position, float force)
     {
@@ -24,6 +26,7 @@ public class myFruit : MonoBehaviour
         whole.SetActive(false);
         sliced.SetActive(true);
         juiceParticleEffect.Play();
+        juiceAudioSource.Play();
         fruitCollider.enabled = false;
         float angle = Mathf.Atan2(direction.y, direction.x)* Mathf.Rad2Deg;
         sliced.transform.rotation = Quaternion.Euler(0f,0f,angle);
@@ -46,6 +49,7 @@ public class myFruit : MonoBehaviour
             myBlade blade = other.GetComponent<myBlade>();
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
             GameManager.StartComboTimer();
+            GameManager.Incrementcombo();
         }
     }
  
