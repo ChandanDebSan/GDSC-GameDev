@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
     [Header("Player Movement")]
     public float playerSpeed = 1.9f;
     public float playerSprint = 3f;
+
+
+    [Header("Player Health Thimgs")]
+    private float playerHealth = 120f;
+    public float presentHealth;
+    public GameObject Damage;
+    public Slider slider;
+    public Gradient gradient;
+    public Image fill;
 
 
     [Header("Player Script Cameras")]
@@ -19,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     public Animator animator;
 
     [Header("Player Jumping and Velocity")]
-    public float turnCalmTime = 1.5f;
+    public float turnCalmTime =0.1f;
     private float turnCalmVelocity;
     private float jumpRange = 1.5f;
     Vector3 velocity;
@@ -28,9 +38,13 @@ public class PlayerScript : MonoBehaviour
     public float surfaceDistance = 0.4f;
     public LayerMask surfaceMask;
 
+ 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        presentHealth = playerHealth;
+        slider.value = presentHealth;
+        fill.color = gradient.Evaluate(1f);
     }
     private void Update()
     {
@@ -132,5 +146,28 @@ public class PlayerScript : MonoBehaviour
                 animator.SetBool("Running", false);
             }
         }
+    }
+    public void playerHitDamage(float takeDamage)
+    {
+        presentHealth -= takeDamage;
+        slider.value = presentHealth;
+        fill.color= gradient.Evaluate(slider.normalizedValue);
+        StartCoroutine(playerDamage());
+
+        if(presentHealth <= 0) {
+
+            playerDie();
+        }
+    }
+    private void playerDie()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Object.Destroy(gameObject, 1.0f);
+    }
+    IEnumerator playerDamage()
+    {
+        Damage.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        Damage.SetActive(false);
     }
 }
