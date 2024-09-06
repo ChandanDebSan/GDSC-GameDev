@@ -14,7 +14,7 @@ public class Rifle : MonoBehaviour
     public PlayerScript player;
     public Transform hand;
     public Animator animator;
-
+    public GameObject rifleUi;
     [Header("Handle Animation and Shootinh")]
     private int maximumAmmunition = 32;
     public int mag = 10;
@@ -31,6 +31,7 @@ public class Rifle : MonoBehaviour
     {
         transform.SetParent(hand);
         presentAmmunition = maximumAmmunition;
+        rifleUi.SetActive(true);
     }
     private void Update()
     {
@@ -43,18 +44,15 @@ public class Rifle : MonoBehaviour
             return;
         }
 
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToShoot)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToShoot && !Input.GetButton("Sprint"))
         {
             //--------------Fire Animation-----------
-            animator.SetBool("Fire", false);
+        
             animator.SetBool("FireWalk", false);
             animator.SetBool("IdleAim", true);
             animator.SetBool("RifleWalk", false);
             animator.SetBool("Reloading", false);
-            animator.SetBool("Idle", false);
-            animator.SetBool("Walk", false);
-            animator.SetBool("Running", false);
-            animator.SetBool("Punch", false);
+           
             //------------------------------------------
 
             nextTimeToShoot = Time.time + 1f / fireCharge;
@@ -64,45 +62,46 @@ public class Rifle : MonoBehaviour
         {
             //--------Rifle Shoot Walk Animation-------
             animator.SetBool("Fire", false);
-            animator.SetBool("FireWalk", true);
+            animator.SetBool("FireWalk", false);
             animator.SetBool("IdleAim", true);
             animator.SetBool("RifleWalk", true);
             animator.SetBool("Reloading", false);
-            animator.SetBool("Idle", false);
-            animator.SetBool("Walk", false);
-            animator.SetBool("Running", false);
-            animator.SetBool("Punch", false);
+           
             //--------------------------------
         }
 
         else if (Input.GetButton("Fire2") && Input.GetButton("Fire1"))
         {
             //--------------Fire Animation-----------
-            animator.SetBool("Fire", true);
+       
             animator.SetBool("FireWalk", false);
             animator.SetBool("IdleAim", true);
             animator.SetBool("RifleWalk", false);
             animator.SetBool("Reloading", false);
-            animator.SetBool("Idle", false);
-            animator.SetBool("Walk", false);
-            animator.SetBool("Running", false);
-            animator.SetBool("Punch", false);
+           
             //-------------------------------------
+        }
+        else if (Input.GetKey(KeyCode.W)  && Input.GetButton("Sprint"))
+        {
+          
+            animator.SetBool("FireWalk", true);
+            animator.SetBool("IdleAim", true);
+            animator.SetBool("RifleWalk", false);
+            animator.SetBool("Reloading", false);
+           
         }
         else
         {
-            animator.SetBool("Fire", false);
+            
             animator.SetBool("FireWalk", false);
             animator.SetBool("IdleAim", true);
             animator.SetBool("RifleWalk", false);
             animator.SetBool("Reloading", false);
-            animator.SetBool("Idle", false);
-            animator.SetBool("Walk", false);
-            animator.SetBool("Running", false);
-            animator.SetBool("Punch", false);
+           
         }
         
     }
+
     private void shoot()
     {
 
@@ -119,7 +118,8 @@ public class Rifle : MonoBehaviour
         }
 
         //updating UI
-
+        RifleUi.occurence.UpdateAmmoText(presentAmmunition);
+        RifleUi.occurence.UpdateMag(mag);
 
         muzzleSparrk.Play();
         RaycastHit hitInfo;
@@ -158,17 +158,17 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 0f;
         player.playerSprint = 0f;
         setRealoading = true;
-
-        Debug.Log("Reloading....");
-        animator.SetBool("Fire", false);
+       
+        //cancel all animations
+        animator.SetBool("Reloading", true);
         animator.SetBool("FireWalk", false);
         animator.SetBool("IdleAim", true);
         animator.SetBool("RifleWalk", false);
-        animator.SetBool("Reloading", true);
-        animator.SetBool("Idle", false);
-        animator.SetBool("Walk", false);
-        animator.SetBool("Running", false);
-        animator.SetBool("Punch", false);
+
+
+        Debug.Log("Reloading....");
+        
+        
 
         //play sound
         yield return new WaitForSeconds(reloadingTime);
@@ -176,6 +176,7 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 1.9f;
         player.playerSprint = 3f;
         setRealoading = false;
+        animator.SetBool("Reloading", false);
 
     }
 

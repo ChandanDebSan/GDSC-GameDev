@@ -7,7 +7,7 @@ public class PlayerPunch : MonoBehaviour
     public Camera cam;
     public float giveDamageOf = 10f;
     public float punchingRange = 5f;
-
+   
     
 
     public void punch()

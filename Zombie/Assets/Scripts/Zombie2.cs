@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 public class Zombie2 : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -10,6 +10,8 @@ public class Zombie2 : MonoBehaviour
     private float zombieHealth = 100f;
     private float presentHealth;
     public float giveDamage = 5f;
+    public Slider slider;
+    public Image fill;
 
     // Start is called before the first frame update
     [Header("ZOmbie Things")]
@@ -40,6 +42,7 @@ public class Zombie2 : MonoBehaviour
     private void Awake()
     {
         presentHealth = zombieHealth;
+        slider.value = presentHealth;
         zombieAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -112,6 +115,7 @@ public class Zombie2 : MonoBehaviour
     public void zombieHitDamage(float takeDamage)
     {
         presentHealth -= takeDamage;
+        slider.value = presentHealth;
         if (presentHealth <= 0)
         {
             

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 
 public class Zombie1 : MonoBehaviour
@@ -18,6 +19,8 @@ public class Zombie1 : MonoBehaviour
     public Transform LookPoint;
     public Transform playerBody;
     public Camera attackingRaycastArea;
+    public Slider slider;
+    public Image fill;
 
     [Header("Zombie Animation")]
     public Animator zom;
@@ -42,6 +45,7 @@ public class Zombie1 : MonoBehaviour
     private void Awake()
     {
         presentHealth = zombieHealth;
+        slider.value = presentHealth;
         zombieAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -129,7 +133,8 @@ public class Zombie1 : MonoBehaviour
     public void zombieHitDamage(float takeDamage)
     {
         presentHealth -= takeDamage;
-        if(presentHealth <= 0)
+        slider.value = presentHealth;
+        if (presentHealth <= 0)
         {
             zom.SetBool("Walking", false);
             zom.SetBool("Running", false);

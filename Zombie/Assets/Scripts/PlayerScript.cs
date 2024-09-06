@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour
     public Animator animator;
 
     [Header("Player Jumping and Velocity")]
-    public float turnCalmTime =0.1f;
+    public float turnCalmTime = 0.1f;
     private float turnCalmVelocity;
     private float jumpRange = 1.5f;
     Vector3 velocity;
@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
     public float surfaceDistance = 0.4f;
     public LayerMask surfaceMask;
 
- 
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -58,7 +58,7 @@ public class PlayerScript : MonoBehaviour
     void CheckGroundStatus()
     {
         onSurface = Physics.CheckSphere(surfaceCheck.position, surfaceDistance, surfaceMask);
-       
+
 
         if (onSurface && velocity.y < 0)
         {
@@ -77,40 +77,57 @@ public class PlayerScript : MonoBehaviour
         float horizontal_axis = Input.GetAxisRaw("Horizontal");
         float vertical_axis = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal_axis, 0f, vertical_axis).normalized;
-
+       
+       
+       
         if (direction.magnitude >= 0.1f)
         {
-            //Walking Animation
+            // Walking Animation
             animator.SetBool("Idle", false);
             animator.SetBool("Walk", true);
             animator.SetBool("Running", false);
-            animator.SetBool("RifleWalk", false);
-            animator.SetBool("IdleAim", false);
+           
 
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, turnCalmTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+            // Calculate movement direction relative to the camera
+            Vector3 moveDirection = playerCamera.right * direction.x + playerCamera.forward * direction.z;
+            moveDirection.y = 0f; // Ensure the player doesn't move up/down
+
+            // Rotate the player to face the direction they are moving forward or backward
+            if (Mathf.Abs(vertical_axis) > 0)
+            {
+                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, turnCalmTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
+
+            // Move the player
             cc.Move(moveDirection.normalized * playerSpeed * Time.deltaTime);
         }
         else
         {
-            //Idle Animation
+            // Idle Animation
             animator.SetBool("Idle", true);
             animator.SetBool("Walk", false);
             animator.SetBool("Running", false);
-           
+
+            // Slow rotation to face the camera direction when stationary
+            float targetAngle = playerCamera.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, turnCalmTime * 2f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
     }
 
+
+
     void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && onSurface)
         {
             animator.SetBool("Idle", false);
             animator.SetTrigger("Jump");
-          
+
             velocity.y = Mathf.Sqrt(jumpRange * -2 * gravity);
         }
         else
@@ -119,18 +136,22 @@ public class PlayerScript : MonoBehaviour
             animator.ResetTrigger("Jump");
         }
     }
-    void  Sprint()
+    void Sprint()
     {
-        if(Input.GetButton("Sprint")&& Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) {
+        if (Input.GetButton("Sprint") && Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        {
             float horizontal_axis = Input.GetAxisRaw("Horizontal");
             float vertical_axis = Input.GetAxisRaw("Vertical");
             Vector3 direction = new Vector3(horizontal_axis, 0f, vertical_axis).normalized;
+            
 
             if (direction.magnitude >= 0.1f)
             {
-           
-                animator.SetBool("Walk", false);
+
+                animator.SetBool("Walk", true);
                 animator.SetBool("Running", true);
+
+
 
 
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
@@ -142,8 +163,8 @@ public class PlayerScript : MonoBehaviour
             }
             else
             {
-                animator.SetBool("Walk", true);
-                animator.SetBool("Running", false);
+                //animator.SetBool("Walk", true);
+                //animator.SetBool("Running", false);
             }
         }
     }
@@ -151,10 +172,11 @@ public class PlayerScript : MonoBehaviour
     {
         presentHealth -= takeDamage;
         slider.value = presentHealth;
-        fill.color= gradient.Evaluate(slider.normalizedValue);
+        fill.color = gradient.Evaluate(slider.normalizedValue);
         StartCoroutine(playerDamage());
 
-        if(presentHealth <= 0) {
+        if (presentHealth <= 0)
+        {
 
             playerDie();
         }

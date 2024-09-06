@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 14049
+  controlID: 62
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 14136
+  controlID: 63
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 14137
+  controlID: 64
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -403,9 +403,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 9a030100
-      m_LastClickedID: 66458
-      m_ExpandedIDs: 98c0ffff52c4ffff9cc8ffff92ccffff70cfffff22e3ffff02e8ffff94ebffff2afbffff9a610000fcef000076f20000fcf20000
+      m_SelectedIDs: 18870000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 04e5ffff08e7ffff50e7ffff46e9ffff5cecffff5cefffff72f2ffff6ef5ffff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -710,9 +710,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 30.8744, y: 36.420025, z: -6.194102}
+    m_Target: {x: 99.9092, y: 39.595337, z: -5.7163563}
     speed: 2
-    m_Value: {x: 32.209457, y: 34.857265, z: -6.166202}
+    m_Value: {x: 99.9092, y: 39.595337, z: -5.7163563}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -763,9 +763,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 64.78912
+    m_Target: 35.71118
     speed: 2
-    m_Value: 61.999165
+    m_Value: 35.71118
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -832,22 +832,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/CasualGameBGM05
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/CasualGameBGM05
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\chand\Road rash
+  m_LastProjectPath: C:\Users\chand\Documents\GitHub\GDSC-GameDev\Pixel Adventure\Road
+    rash
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 88850000
-    m_LastClickedID: 34184
-    m_ExpandedIDs: 000000007485000076850000788500007a8500007c85000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 180}
+    m_SelectedIDs: c0860000
+    m_LastClickedID: 34496
+    m_ExpandedIDs: 00000000928600009486000096860000988600009a86000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -875,7 +876,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007485000076850000788500007a8500007c85000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000928600009486000096860000988600009a860000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -902,7 +903,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000e86200008a600000c86100003e660000f4690000c869000000610000ec7100003e7000004a730000fe6500008e6d0000000000004e5f0000fa7d0000e0620000d4620000ea620000ee620000f862000098610000966300007ede000082de00009823010016250100c2650000aa2901006e81000072d200004a8b0000d6750000ae8a00009a8a0000ca8a00007a6200009683000080320100d8da0000d0630000f2890000a878000052e4000044ef00001c940000749600005c640000ae68000020a50000dad100008a010100a0790000fa700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

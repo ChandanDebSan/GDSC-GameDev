@@ -15,13 +15,14 @@ public class RiflePickup : MonoBehaviour
     private float nextTimeToPunch = 0f;
     public float punchCharge = 15f;
     public Animator animator;
-
+    public GameObject rifleUi;
 
 
     private void Awake()
     {
+        rifleUi.SetActive(true);
         playerRifle.SetActive(false);
-
+        
     }
     private void Update()
     {
