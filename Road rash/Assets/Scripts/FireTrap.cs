@@ -8,7 +8,7 @@ public class FireTrap : MonoBehaviour
     [Header("Firetrap Timers")]
     [SerializeField] private float activationDelay;
     [SerializeField] private float activeTime;
-    [SerializeField] Animation fireanim;
+   // [SerializeField] Animation fireanim;
     private Animator anim;
     private SpriteRenderer spriteRenderer;
 
@@ -19,7 +19,7 @@ public class FireTrap : MonoBehaviour
     {
         anim = GetComponent<Animator>();    
         spriteRenderer = GetComponent<SpriteRenderer>();
-        fireanim.playAutomatically = true;
+        //fireanim.playAutomatically = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class FAN : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float fly = 15f;
+    [SerializeField] float fly = 0f;
     [SerializeField] private AudioSource JumpSoundEffect;
     private void OnCollisionEnter2D(Collision2D collision)
     {

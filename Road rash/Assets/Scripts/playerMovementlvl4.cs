@@ -17,6 +17,7 @@ public class playerMovementlvl4 : MonoBehaviour
     private enum MovementState { idle, Running, jumping, falling }
     // Start is called before the first frame update
     [SerializeField] private AudioSource JumpSoundEffect;
+   
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,7 +30,7 @@ public class playerMovementlvl4 : MonoBehaviour
     private void Update()
     {
         dirX = Input.GetAxisRaw("Horizontal");
-       
+        
         print(IsWall());
         if(wallJumpCooldown < 0.2f)
         {

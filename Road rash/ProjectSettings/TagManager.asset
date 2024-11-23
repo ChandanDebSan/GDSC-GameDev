@@ -8,6 +8,7 @@ TagManager:
   - spike
   - traps
   - fan
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - wallJump
   - 
   - 
   - 
@@ -48,8 +49,14 @@ TagManager:
   - name: Background
     uniqueID: 3615892647
     locked: 0
+  - name: scene
+    uniqueID: 3816514079
+    locked: 0
   - name: Platform
     uniqueID: 4070583605
+    locked: 0
+  - name: wall
+    uniqueID: 1058813607
     locked: 0
   - name: Player
     uniqueID: 740924871
@@ -59,4 +66,7 @@ TagManager:
     locked: 0
   - name: spikes
     uniqueID: 3974417567
+    locked: 0
+  - name: Enemy
+    uniqueID: 3177098955
     locked: 0

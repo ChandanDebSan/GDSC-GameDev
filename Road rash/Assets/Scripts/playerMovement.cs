@@ -9,12 +9,16 @@ public class playerMovement : MonoBehaviour
     private Animator anim;
     private BoxCollider2D coll;
     private float dirX = 0f;
-    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float moveSpeed = 6f;
     [SerializeField]private float jumpForce = 7f;
     [SerializeField] private LayerMask jumpableGround;
-    private enum MovementState {idle,Running,jumping,falling }
+    [SerializeField] private LayerMask jumpableWall;
+    private float wallJumpCooldown;
+    private enum MovementState {idle,Running,jumping,falling}
     // Start is called before the first frame update
     [SerializeField] private AudioSource JumpSoundEffect;
+    public Joystick joy;
+    public float dirY;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,13 +30,29 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+        //dirX = Input.GetAxisRaw("Horizontal");
+        dirX = joy.Horizontal;
+        dirY = joy.Vertical;
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if(dirX >= 0.5f)
+        {
+            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+        }
+        else if(dirX <= -0.5f)
+        {
+            rb.velocity = new Vector2(-1f*moveSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        //rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+        //if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (dirY >= 0.5f && IsGrounded())
         {
             JumpSoundEffect.Play();
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); 
         }
         UpdateAnimationsState();
     }
@@ -67,5 +87,9 @@ public class playerMovement : MonoBehaviour
     private bool IsGrounded()
     {
        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
+    }
+    private bool IsWall()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, new Vector2(transform.localScale.x,0), 0.1f, jumpableWall);
     }
 }
